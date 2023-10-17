@@ -1,0 +1,28 @@
+.header-container {
+    background-color: #333; 
+    color: #fff; 
+    height: 60px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; 
+  }
+  
+  .logo-container img {
+    height: 40px; 
+  }
+  
+  .logout-button button {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 10px 20px; 
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px; 
+  }
+  
+  .logout-button button:hover {
+    background-color: #cc0000; 
+  }
+  

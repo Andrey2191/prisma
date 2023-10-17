@@ -1,33 +1,36 @@
 import React from 'react';
+import './login.css'
+import logo from '../../assets/images/logo.svg'
 
-const LoginUI = ({ formData, handleInputChange, handleSubmit }) => {
+const LoginUI = ({ formData, handleInputChange, handleSubmit, error }) => {
   return (
     <div className="login-form">
-      <h2>Вход</h2>
+      <img src={logo} alt="Logo" className="logo" />
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Имя пользователя:</label>
           <input
             type="text"
             id="username"
             name="username"
+            placeholder='Username'
             value={formData.username}
             onChange={handleInputChange}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Пароль:</label>
           <input
             type="password"
             id="password"
             name="password"
+            placeholder='Password'
             value={formData.password}
             onChange={handleInputChange}
             required
           />
         </div>
-        <button type="submit">Войти</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );

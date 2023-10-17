@@ -1,34 +1,31 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Home from './components/home/Home';
 import LoginForm from './components/login/LoginForm';
-import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const sessionToken = localStorage.getItem('sessionToken');
-    if (sessionToken) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
+
+  const issAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  console.log(issAuthenticated);
   return (
     <Router>
-    <div className="App">
-    <Routes>
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? <Navigate to="/" /> : <LoginForm setIsAuthenticated={setIsAuthenticated} />
-          }
-        />
-        <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
-      </Routes>
-    </div>
-  </Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              issAuthenticated ? <Navigate to="/" /> : <LoginForm />
+            }
+          />
+          <Route path="/" element={issAuthenticated ? <Home /> : <Navigate to="/login" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
