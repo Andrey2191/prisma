@@ -30,7 +30,7 @@ const LoginUI = ({ formData, handleInputChange, handleSubmit, error }) => {
             required
           />
         </div>
-        <button type="submit">Sign In</button>
+        <button className='login-btn' type="submit">Sign In</button>
       </form>
     </div>
   );

@@ -1,0 +1,130 @@
+.accounts{
+    margin: 50px 30px;
+    max-height: 100%;
+    max-width: 60%;
+    padding: 20px;
+    background-color: #333; 
+    color: #fff; 
+    border-radius: 20px;
+}
+
+.accounts-header{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accounts-content{
+    padding: 20px;
+}
+
+.accounts-content-input{
+    width: calc(100% - 20px);
+    height: 25px;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.accounts-header-btn{
+    width: 100%;
+    padding: 10px;
+    background-color: #459db6;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accounts-header-btn:hover {
+    background-color: #5bbdf1;
+}
+
+.accounts-content-list{
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.accounts-content-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.accont-card-info{
+    color: #c4c4c4;
+}
+
+.card-info-name{
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+/* -----------------card--------- */
+.account-card{
+    padding: 15px;
+    margin: 10px 0;
+    width: calc(100% - 30px);
+    display: flex;
+    /* align-items: center; */
+    background-color: #222;
+    border-radius: 5px;
+    border: 1px;
+}
+
+.account-card-img{
+    margin-right: 30px;
+}
+
+.card-img{
+    width: 35px;
+    border-radius: 50%;
+}
+
+.account-card-btns{
+    display: flex;
+}
+
+.card-btn {
+    margin-right: 25px;
+    border: none;
+    background:none;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.card-btn:hover {
+    color: #5bbdf1;
+  }
+
+.accont-card-info{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-deleteBtn{
+    margin-left: 25px;
+    width: 50px;
+    padding: 10px;
+    background-color: #a82a2a;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
+}
+
+.card-deleteBtn:hover {
+    background-color: #f15b5b;
+}

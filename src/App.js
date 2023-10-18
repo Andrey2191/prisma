@@ -3,15 +3,11 @@ import React from 'react';
 import Home from './components/home/Home';
 import LoginForm from './components/login/LoginForm';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 
-
 function App() {
-
-
-  const issAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  console.log(issAuthenticated);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  console.log(isAuthenticated);
   return (
     <Router>
       <div className="App">
@@ -19,10 +15,10 @@ function App() {
           <Route
             path="/login"
             element={
-              issAuthenticated ? <Navigate to="/" /> : <LoginForm />
+              isAuthenticated ? <Navigate to="/" /> : <LoginForm />
             }
           />
-          <Route path="/" element={issAuthenticated ? <Home /> : <Navigate to="/login" />} />
+          <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>
