@@ -32,8 +32,13 @@ const LoginForm = () => {
 
       if (response.status === 200 && response.data.session_token) {
         const sessionToken = response.data.session_token;
+        localStorage.setItem('sessionToken', sessionToken);
+      
+      // Установить токен в заголовок Axios для всех будущих запросов
+      axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
 
-        axios.defaults.headers.common['Authorization'] = `Bearer ${sessionToken}`;
+
+        axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
         dispatch(loginSuccess());
         console.log(response);
         navigate('/');
