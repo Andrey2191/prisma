@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteOutlined, CloudServerOutlined, InboxOutlined, PictureOutlined } from '@ant-design/icons';
 import { fetchMails } from '../../redux/slice/inboxSlice';
+import { Link } from 'react-router-dom';
 
 
 const AccountCard = ({ img, userName, userEmail, id }) => {
@@ -27,9 +28,9 @@ const AccountCard = ({ img, userName, userEmail, id }) => {
                 <span className="card-info-email">{userEmail}</span>
             </div>
             <div className="account-card-btns">
-                <button className='card-btn' onClick={handleInboxButtonClick}><InboxOutlined /></button>
+                <Link to={`/inbox/${id}`} className='card-btn' onClick={handleInboxButtonClick}><InboxOutlined /></Link>
                 <button className='card-btn'><CloudServerOutlined /></button>
-                <button className='card-btn'><PictureOutlined /></button>
+                <Link  className='card-btn'><PictureOutlined /></Link>
             </div>
             <div className="account-card-deleteBtn">
                 <button className="card-deleteBtn"><DeleteOutlined /> </button>

@@ -1,0 +1,88 @@
+.inbox-page {
+    height: 100vh;
+    background-color: #333;
+}
+
+.inbox-content{
+    width: 70%;
+    margin-left: 30px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #424242;
+    border-radius: 10px;
+    -webkit-box-shadow: 12px 12px 9px 2px rgba(0, 0, 0, 0.41);
+    -moz-box-shadow: 12px 12px 9px 2px rgba(0, 0, 0, 0.41);
+    box-shadow: 12px 12px 9px 2px rgba(0, 0, 0, 0.41);
+}
+
+.inbox-content-list{
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.inbox-content-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.inbox-content-header{
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inbox-header-title{
+    color: #fff;
+}
+
+.inbox-content-input{
+    width: 85%;
+    height: 25px;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+}
+
+
+
+/* ---------CARD-------- */
+.inbox-card{
+    width: calc(100% - 30px);
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #222;
+    color: #fff;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+
+.inbox-card-info{
+    width: 260px;
+}
+
+.inbox-card-message{
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.inbox-card-snippet{
+    color: #c4c4c4;
+}
+
+.inbox-card-time{
+    color: #c4c4c4;
+}
