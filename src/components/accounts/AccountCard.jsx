@@ -1,5 +1,20 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { DeleteOutlined, CloudServerOutlined, InboxOutlined, PictureOutlined } from '@ant-design/icons';
-const AccountCard = ({ img, userName, userEmail }) => {
+import { fetchMails } from '../../redux/slice/inboxSlice';
+
+
+const AccountCard = ({ img, userName, userEmail, id }) => {
+    const dispatch = useDispatch();
+    const mails = useSelector(state => state.inbox.mails)
+
+    // useEffect(() => {
+    //     dispatch(fetchMails({id}))
+    // }, [dispatch])
+
+    const handleInboxButtonClick = () => {
+        dispatch(fetchMails({ id }));
+    };
 
 
     return (
@@ -12,7 +27,7 @@ const AccountCard = ({ img, userName, userEmail }) => {
                 <span className="card-info-email">{userEmail}</span>
             </div>
             <div className="account-card-btns">
-                <button className='card-btn'><InboxOutlined /></button>
+                <button className='card-btn' onClick={handleInboxButtonClick}><InboxOutlined /></button>
                 <button className='card-btn'><CloudServerOutlined /></button>
                 <button className='card-btn'><PictureOutlined /></button>
             </div>

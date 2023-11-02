@@ -57,7 +57,7 @@ const accountsSlice = createSlice({
             })
             .addCase(createAccount.fulfilled, (state, action) => {
                 state.loading = false;
-                state.data.push(action.payload);
+                // state.data.push(action.payload);
             })
             .addCase(createAccount.rejected, (state, action) => {
                 state.loading = false;

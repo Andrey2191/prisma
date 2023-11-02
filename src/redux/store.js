@@ -3,14 +3,14 @@ import authReducer from './reducers/authReducer';
 import fileReducer from './reducers/fileUploadReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import accountsSlice from './slice/accountsSlice';
+import inboxSlice from './slice/inboxSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   uploadedFile: fileReducer,
-  accounts: accountsSlice
+  accounts: accountsSlice,
+  inbox: inboxSlice
 });
-
-// const store = createStore(rootReducer);
 
 const store = configureStore({
   reducer: rootReducer

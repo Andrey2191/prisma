@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './accounts.css'
 import AccountCard from './AccountCard'
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAccount, fetchAccounts } from '../../redux/slice/accountsSlice';
 
@@ -9,44 +8,12 @@ import { createAccount, fetchAccounts } from '../../redux/slice/accountsSlice';
 const Accounts = () => {
     const dispatch = useDispatch();
     const accounts = useSelector(state => state.accounts.data);
-    // console.log( accounts.id);
+    console.log( accounts);
 
     useEffect(() => {
         dispatch(fetchAccounts());
       }, [dispatch]);
 
-
-    const readFile = useCallback(async (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-
-            fileReader.onload = function (e) {
-                resolve(e.target.result);
-            };
-
-            fileReader.onerror = function (e) {
-                reject(e.target.error);
-            };
-
-            fileReader.readAsText(file);
-        });
-    }, []);
-
-    // const handleFileChange = async (event) => {
-    //     const file = event.target.files[0];
-    //     if (file) {
-    //         try {
-    //             const fileContent = await readFile(file);
-    //             const response = await axios.post('https://plifal.tech/api/accounts/', {
-    //                 file_name: file.name,
-    //                 cookies: fileContent
-    //             });
-    //             console.log('Response:', response.data);
-    //         } catch (error) {
-    //             console.error('Error:', error);
-    //         }
-    //     }
-    // };
 
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
@@ -78,7 +45,7 @@ const Accounts = () => {
                 </div>
                 <div className="accounts-content-list">
                     {accounts.map((account) => { 
-                        return <AccountCard key={account.ID} userEmail={account.email} userName={account.name} img={account.photo} />
+                        return <AccountCard id={account.ID} key={account.ID} userEmail={account.email} userName={account.name} img={account.photo} />
                     })}
                 </div>
             </div>
