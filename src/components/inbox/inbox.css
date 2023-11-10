@@ -4,7 +4,7 @@
 }
 
 .inbox-content{
-    width: 70%;
+    width: 90%;
     margin-left: 30px;
     margin-top: 20px;
     padding: 20px;
@@ -16,12 +16,18 @@
 }
 
 .inbox-content-list{
+    width: 90%;
+    margin-left: 30px;
     max-height: 700px;
     overflow-y: auto;
 }
 
 .inbox-content-list::-webkit-scrollbar {
     width: 0;
+}
+
+.inbox-main{
+    display: flex;
 }
 
 .inbox-content-header{
@@ -85,4 +91,73 @@
 
 .inbox-card-time{
     color: #c4c4c4;
+}
+
+/* ----------SIDEBAR-------- */
+
+.inbox-sidebar {
+    width: 200px;
+    /* height: 100%; */
+    background-color: #333; 
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inbox-tab {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .inbox-tab:hover {
+    background-color: #e0e0e0;
+  }
+
+  /* -------MESSAGE-------- */
+
+  .inbox-message-page{
+    width: 90%;
+    margin-left: 30px;
+    height: 700px;
+    overflow-y: auto;
+    border-radius: 15px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .inbox-message-page::-webkit-scrollbar {
+    width: 0;
+}
+
+.message-info{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.message-header{
+    padding: 15px ;
+    background-color: #333;
+}
+
+.msg-close{
+    margin-bottom: 15px;
+    background:none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+}
+
+.msg-close:hover{
+    color: #459db6;
+}
+
+.message-subject{
+    margin-bottom: 15px;
+    color: #fff;
 }

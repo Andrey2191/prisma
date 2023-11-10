@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { fetchMessage } from '../../redux/slice/inboxSlice';
+
 
 const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -6,22 +9,26 @@ const formatDate = (timestamp) => {
 };
 
 const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
+    if (text?.length > maxLength) {
         return text.substring(0, maxLength - 3) + '...';
     }
     return text;
 };
 
-const InboxCard = ({ sender, subject, snippet, time }) => {
+const InboxCard = ({id, sender, snippet, time, messageId, threadId, onClick }) => {
+    const dispatch = useDispatch();
     const truncatedSnippet = truncateText(snippet, 100)
     const formattedTime = formatDate(time);
+
+    const handleClick = () => {
+        dispatch(fetchMessage({ id, threadId, messageId }));
+    };
     return (
-        <div className="inbox-card">
+        <div className="inbox-card" onClick={onClick}>
             <div className="inbox-card-info">
                 <span className="inbox-card-email">{sender}</span>
             </div>
             <div className="inbox-card-message">
-                {/* <span className="inbox-card-subject">{subject}</span> */}
                 <span className="inbox-card-snippet">{truncatedSnippet}</span>
             </div>
             <div className="inbox-card-date">

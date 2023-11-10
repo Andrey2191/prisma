@@ -12,12 +12,23 @@ export const fetchMails = createAsyncThunk('inbox/fetchMails', async ({id}) => {
     }
 })
 
+export const fetchMessage = createAsyncThunk('inbox/fetchMessage', async ({ id, threadId, messageId }) => {
+    try {
+        const response = await axios.get(`https://plifal.tech/api/accounts/${id}/inbox/mail?threadId=${threadId}&messageId=${messageId}`);
+        console.log(response.data);
+        return response.data.body; 
+    } catch (error) {
+        throw error;
+    }
+});
+
 const inboxSlice = createSlice({
     name: 'inbox',
     initialState: {
         mails: [],
         loading: false,
         error: null,
+        selectedMessage: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -34,6 +45,9 @@ const inboxSlice = createSlice({
             .addCase(fetchMails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
+            })
+            .addCase(fetchMessage.fulfilled, (state, action) => {
+                state.selectedMessage = action.payload; // Сохраняем полученные данные в состоянии
             });
     },
 });
