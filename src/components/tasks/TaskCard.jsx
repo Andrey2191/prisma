@@ -1,18 +1,18 @@
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
-const TaskCard = ({index, email}) => {
+const TaskCard = ({index, name, success}) => {
 
 
     return (
         <div className="task-card">
             <div className="task-card-index">
-                {index}
+                # {index}
             </div>
-            <div className="task-card-email">
-                {email}
+            <div className="task-card-name">
+                {name}
             </div>
             <div className="task-card-check">
-            <CheckOutlined />
+            {success ? <CheckOutlined /> : <CloseOutlined className='task-close'/>}
             </div>
         </div>
     )

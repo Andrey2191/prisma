@@ -24,8 +24,8 @@ const readFile = async (file) => {
         file_name: file.name,
         cookies: fileContent,
       });
-      console.log(response);
-      return response.data;
+      console.log(response.data.task);
+      return response.data.task;
     } catch (error) {
       throw error;
     }

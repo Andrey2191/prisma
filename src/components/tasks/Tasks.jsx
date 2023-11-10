@@ -1,59 +1,23 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TaskCard from './TaskCard'
 import './tasks.css'
+import { fetchTasks } from '../../redux/slice/tasksSlice';
 
-const taskDB = [
-    {
-        index: '#1111',
-        email: '123@qwe.com'
-    },
-    {
-        index: '#2222',
-        email: 'qqqqnet@qwe.com'
-    },
-    {
-        index: '#1241',
-        email: '12qwdqwd3@qwe.com'
-    },
-    {
-        index: '#7271',
-        email: '123gggg@qwe.com'
-    },
-    {
-        index: '#5523',
-        email: '113123@qwe.com'
-    },
-    {
-        index: '#6284',
-        email: '123bnmbnm@qwe.com'
-    },
-    {
-        index: '#0052',
-        email: '123@qwe.com'
-    },
-    {
-        index: '#3452',
-        email: '123@qwe.com'
-    },
-    {
-        index: '#4291',
-        email: '123@qwe.com'
-    },
-    {
-        index: '#2266',
-        email: '22wer@qwe.com'
-    },
-    {
-        index: '#9953',
-        email: 'werwer@qwe.com'
-    },
-    {
-        index: '#1105',
-        email: '12qd3@qwe.com'
-    },
-]
 
 const Tasks = () => {
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks.data);
 
+    useEffect(() => {
+        dispatch(fetchTasks());
+      }, [dispatch]);
+
+      console.log(Object.keys(tasks).length);
+
+      const activeTasksCount = tasks.filter(task => task.success).length;
+
+      console.log(activeTasksCount);
 
     return (
         <div className="tasks">
@@ -62,13 +26,13 @@ const Tasks = () => {
                     <h2>Tasks</h2>
                 </div>
                 <div className="tasks-header-info">
-                    <span className="tasks-info">active 0/20</span>
+                    <span className="tasks-info">active {activeTasksCount}/{tasks.length}</span>
                 </div>
             </div>
             <div className="tasks-content">
                 <div className="tasks-content-list">
-                    {taskDB.map((task) => {
-                        return <TaskCard index={task.index} email={task.email}/>
+                    {tasks.slice().reverse().map((task) => {
+                        return <TaskCard key={task.id} index={task.id} name={task.name} success={task.success}/>
                     })}
                 </div>
             </div>

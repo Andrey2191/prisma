@@ -34,7 +34,7 @@ const Accounts = () => {
                     <h2>Accounts</h2>
                 </div>
                 <div className="accounts-header-btns">
-                    <input type="file" onChange={handleFileChange} />
+                    <input className='custom-file-input'  type="file" onChange={handleFileChange} />
                     {/* <button className="accounts-header-btn" onClick={handleSubmit}>Load Single Cookie</button> */}
                     {/* <button className="accounts-header-btn" onClick={handleBulkFileUpload}>Bulk Upload</button> */}
                 </div>

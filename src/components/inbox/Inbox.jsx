@@ -60,7 +60,24 @@ const Inbox = () => {
                         </div>
                     ) : (
                         <div className="inbox-content-list">
-                            {mails.map((mail) => (
+                            {Array.isArray(mails) ? (
+              mails.map((mail) => (
+                <InboxCard
+                  key={mail.message_id}
+                  id={id}
+                  messageId={mail.message_id}
+                  threadId={mail.thread_id}
+                  sender={mail.sender}
+                  subject={mail.subject}
+                  snippet={mail.snippet}
+                  time={mail.timestamp}
+                  onClick={() => handleCardClick(mail.message_id, mail.thread_id)}
+                />
+              ))
+            ) : (
+              <p>Загрузка или пустое состояние...</p>
+            )}
+                            {/* {mails.map((mail) => (
                                 <InboxCard
                                     key={mail.message_id}
                                     id={id}
@@ -72,7 +89,7 @@ const Inbox = () => {
                                     time={mail.timestamp}
                                     onClick={() => handleCardClick(mail.message_id, mail.thread_id)}
                                 />
-                            ))}
+                            ))} */}
                         </div>
                     )}
                 </div>
