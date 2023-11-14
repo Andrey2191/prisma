@@ -13,11 +13,21 @@ const Inbox = () => {
     const dispatch = useDispatch();
     const mails = useSelector(state => state.inbox.mails)
     const selectedMessage = useSelector(state => state.inbox.selectedMessage)
+    const activeLabel = useSelector(state => state.inbox.activeLabel);
     const [showMessagePage, setShowMessagePage] = useState(false);
+    const [activeView, setActiveView] = useState('Primary');
+    const [activeQuery, setActiveQuery] = useState('');
+    const [searchText, setSearchText] = useState('');
 
-    useEffect(() => {
-        dispatch(fetchMails({ id }))
-    }, [dispatch])
+
+useEffect(() => {
+    const query = activeQuery || '';
+    const fetchData = async () => {
+      await dispatch(fetchMails({ id, query, view: activeView, activeLabel })); 
+    };
+
+    fetchData();
+  }, [dispatch, id, activeView, activeQuery, activeLabel]);
 
     const handleCardClick = (messageId, threadId) => {
         dispatch(fetchMessage({ id, threadId, messageId }));
@@ -28,11 +38,20 @@ const Inbox = () => {
         setShowMessagePage(false);
     };
 
-    const handleCloseMessage = () => {
+    const handleViewChange = (view, query, dataView, dataQuery) => {
+        console.log('Handling view change:', view, query, dataView, dataQuery);
+    setActiveView(view);
+    setActiveQuery(query);
+    dispatch(fetchMails({ id, query: dataQuery, view: dataView }));
+      };
 
-    }
 
-    console.log(showMessagePage);
+    console.log(mails);
+
+    const filteredMails = mails.filter(mail =>
+        mail.sender.toLowerCase().includes(searchText.toLowerCase()) ||
+        mail.subject.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     return (
         <div className='inbox-page'>
@@ -42,26 +61,30 @@ const Inbox = () => {
             <div className="inbox-content">
                 <div className="inbox-content-header">
                     <h1 className='inbox-header-title'>Inbox</h1>
-                    <input type="text" placeholder='Search' className="inbox-content-input" />
+                    <input value={searchText} 
+                    type="text" 
+                    placeholder='Search' 
+                    className="inbox-content-input" 
+                    onChange={(e) => setSearchText(e.target.value)}/>
                 </div>
                 <div className="inbox-main">
                     <div className="sidebar">
-                        <InboxSidebar />
+                        <InboxSidebar id={id} onSelectView={handleViewChange}/>
                     </div>
                     {showMessagePage ? (
                         <div className="inbox-message-page">
                             <MessagePage 
-                                sender={selectedMessage.sender} 
-                                receiver={selectedMessage.receiver} 
-                                subject={selectedMessage.subject}
+                                sender={selectedMessage?.sender} 
+                                receiver={selectedMessage?.receiver} 
+                                subject={selectedMessage?.subject}
                                 onClick={handleBackToInbox} 
                                 body={selectedMessage?.body} 
                              />
                         </div>
                     ) : (
                         <div className="inbox-content-list">
-                            {Array.isArray(mails) ? (
-              mails.map((mail) => (
+                            {Array.isArray(filteredMails) ? (
+              filteredMails.map((mail) => (
                 <InboxCard
                   key={mail.message_id}
                   id={id}
@@ -77,19 +100,6 @@ const Inbox = () => {
             ) : (
               <p>Загрузка или пустое состояние...</p>
             )}
-                            {/* {mails.map((mail) => (
-                                <InboxCard
-                                    key={mail.message_id}
-                                    id={id}
-                                    messageId={mail.message_id}
-                                    threadId={mail.thread_id}
-                                    sender={mail.sender}
-                                    subject={mail.subject}
-                                    snippet={mail.snippet}
-                                    time={mail.timestamp}
-                                    onClick={() => handleCardClick(mail.message_id, mail.thread_id)}
-                                />
-                            ))} */}
                         </div>
                     )}
                 </div>

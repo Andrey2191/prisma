@@ -19,7 +19,7 @@
 }
 
 .accounts-content{
-    padding: 20px;
+    padding: 0 20px 20px 20px;
 }
 
 .accounts-content-input{
@@ -71,6 +71,64 @@
     font-weight: bold;
     color: #fff;
 }
+
+.delete-all{
+    padding: 5px;
+    background-color: #a82a2a;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.accounts-content-filter{
+    display: flex;
+    align-items: center;
+    margin: 0 0 15px 20px;
+}
+
+.accounts-content-filter select {
+    margin-left: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .accounts-content-filter select option {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .starred-btn{
+    margin-left: 20px;
+    padding: 5px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .starred-btn:hover{
+    color: #56afdf;
+    cursor: pointer;
+  }
+
+  .all-accounts-btn{
+    margin-left: 250px;
+    padding: 5px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .all-accounts-btn:hover{
+    color: #56afdf;
+    cursor: pointer;
+  }
 
 
 /* -----------------account card--------- */
@@ -168,4 +226,20 @@
   }
   .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  }
+
+  .star-btn{
+    margin-right: 15px;
+    border: none;
+    background:none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .star-btn:hover{
+    color: #ffd900;
+  }
+
+  .is-starred{
+    color: #ffd900;
   }

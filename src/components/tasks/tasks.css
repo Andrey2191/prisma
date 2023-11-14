@@ -65,3 +65,86 @@
 .task-close{
     color: red;
 }
+
+/* ------------TASK MODAL--------- */
+.task-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* полупрозрачный черный цвет */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .task-modal {
+    background: #fff; /* белый цвет фона модального окна */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* тень для модального окна */
+    color: #222;
+  }
+
+  .modal-header{
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-header h3{
+    margin-right: 30px;
+  }
+
+  .modal-close{
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(226, 70, 70);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .modal-close:hover{
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 6, 6);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .modal-succes{
+    color: green;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .modal-failed{
+    color: red;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .modal-info{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+  }
+
+  .modal-btn{
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal-drive{
+    padding: 5px 10px;
+    border: none;
+    background-color: rgb(112, 180, 180);
+    border-radius: 5px;
+  }
+
+  .modal-drive:hover{
+    color: #fff;
+    background-color: rgb(106, 224, 224);
+  }

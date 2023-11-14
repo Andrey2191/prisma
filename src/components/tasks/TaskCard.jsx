@@ -1,10 +1,10 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
-const TaskCard = ({index, name, success}) => {
+const TaskCard = ({index, name, success, onClick}) => {
 
 
     return (
-        <div className="task-card">
+        <div className="task-card" onClick={onClick}>
             <div className="task-card-index">
                 # {index}
             </div>

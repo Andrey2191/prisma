@@ -31,6 +31,36 @@ export const fetchPhotos = createAsyncThunk('inbox/fetchPhotos', async ({id}) =>
         throw error
     }
 })
+export const fetchCookies = createAsyncThunk('inbox/fetchCookies', async ({id}) => {
+    try {
+        const response = await axios.post(`https://plifal.tech/api/accounts/${id}/cookies`)
+        console.log(response.data.task);
+        return response.data.task
+
+    } catch (error) {
+        throw error
+    }
+})
+export const fetchKeep = createAsyncThunk('inbox/fetchKeep', async ({id}) => {
+    try {
+        const response = await axios.get(`https://plifal.tech/api/accounts/${id}/keep/`)
+        console.log(response.data.task);
+        return response.data.task
+
+    } catch (error) {
+        throw error
+    }
+})
+
+export const fetchTask = createAsyncThunk('inbox/fetchTask', async ({ id }) => {
+    try {
+        const response = await axios.get(`https://plifal.tech/api/task?id=${id}`);
+        console.log(response.data);
+        return response.data; 
+    } catch (error) {
+        throw error;
+    }
+});
 
 const tasksSlice = createSlice({
     name: 'tasks',
@@ -38,6 +68,7 @@ const tasksSlice = createSlice({
         data: [],
         loading: false,
         error: null,
+        selectedTask: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -57,7 +88,7 @@ const tasksSlice = createSlice({
             })
             // get
             .addCase(fetchDrive.fulfilled, (state, action) => {
-                state.data.push(action.payload);
+                state.data.unshift(action.payload);
               })
               .addCase(fetchDrive.pending, (state) => {
                 state.loading = true;
@@ -68,11 +99,20 @@ const tasksSlice = createSlice({
                 state.error = action.error.message;
               })
               .addCase(createAccount.fulfilled, (state, action) => {
-                state.data.push(action.payload);
+                state.data.unshift(action.payload);
               })
               .addCase(fetchPhotos.fulfilled, (state, action) => {
-                state.data.push(action.payload);
+                state.data.unshift(action.payload);
               })
+              .addCase(fetchCookies.fulfilled, (state, action) => {
+                state.data.unshift(action.payload);
+              })
+              .addCase(fetchKeep.fulfilled, (state, action) => {
+                state.data.unshift(action.payload);
+              })
+              .addCase(fetchTask.fulfilled, (state, action) => {
+                state.selectedTask = action.payload; 
+            });
     },
 });
 

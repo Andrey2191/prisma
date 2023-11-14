@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchMails = createAsyncThunk('inbox/fetchMails', async ({id}) => {
+export const fetchMails = createAsyncThunk('inbox/fetchMails', async ({ id, query, view}) => {
     try {
-        const response = await axios.get(`https://plifal.tech/api/accounts/${id}/inbox/mails?`)
+        const response = await axios.get(`https://plifal.tech/api/accounts/${id}/inbox/mails`, {
+            params: {
+                query,
+                view,
+            }
+        })
         console.log(response.data.mails);
         return response.data.mails
 
@@ -40,14 +45,17 @@ const inboxSlice = createSlice({
             })
             .addCase(fetchMails.fulfilled, (state, action) => {
                 state.loading = false;
-                state.mails = action.payload;
+                // state.mails = action.payload;
+                state.mails = Array.isArray(action.payload) ? action.payload : [];
+                console.log('Mails updated:', state.mails);
             })
             .addCase(fetchMails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
+                
             })
             .addCase(fetchMessage.fulfilled, (state, action) => {
-                state.selectedMessage = action.payload; // Сохраняем полученные данные в состоянии
+                state.selectedMessage = action.payload; 
             });
     },
 });

@@ -117,6 +117,44 @@
     background-color: #e0e0e0;
   }
 
+  .nav-item{
+    margin-bottom: 15px;
+    padding: 5px;
+  }
+
+  .nav-btn{
+    background: none;
+    border: none;
+  }
+
+  .nav-btn:hover {
+    color: #459db6;
+  }
+
+  .active {
+    padding: 5px;
+    color: #fff;
+    background-color: #459db6;
+  }
+  .active button{
+    color: #fff;
+
+  }
+
+
+  .nav-btn {
+    text-decoration: none; 
+    color: #fff; 
+    font-size: 20px;
+    cursor: pointer; 
+  }
+
+  .inbox-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
   /* -------MESSAGE-------- */
 
   .inbox-message-page{

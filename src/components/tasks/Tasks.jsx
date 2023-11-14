@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TaskCard from './TaskCard'
 import './tasks.css'
-import { fetchTasks } from '../../redux/slice/tasksSlice';
+import {  fetchTasks } from '../../redux/slice/tasksSlice';
+import TaskModal from './TaskModal';
 
 
 const Tasks = () => {
+
     const dispatch = useDispatch();
     const tasks = useSelector(state => state.tasks.data);
+    const [selectedTaskId, setSelectedTaskId] = useState(null);
 
     useEffect(() => {
         dispatch(fetchTasks());
-      }, [dispatch]);
+    }, [dispatch]);
 
-      console.log(Object.keys(tasks).length);
+    const activeTasksCount = tasks.filter(task => task?.success).length;
 
-      const activeTasksCount = tasks.filter(task => task.success).length;
-
-      console.log(activeTasksCount);
+    const handleCardClick = (id) => {
+        setSelectedTaskId(id);
+      };
+    
+      const handleCloseModal = () => {
+        setSelectedTaskId(null);
+      };
 
     return (
         <div className="tasks">
@@ -31,11 +38,14 @@ const Tasks = () => {
             </div>
             <div className="tasks-content">
                 <div className="tasks-content-list">
-                    {tasks.slice().reverse().map((task) => {
-                        return <TaskCard key={task.id} index={task.id} name={task.name} success={task.success}/>
+                    {tasks.map((task) => {
+                        return <TaskCard onClick={() => handleCardClick(task?.id)} key={task?.id} index={task?.id} name={task?.name} success={task?.success} />
                     })}
                 </div>
             </div>
+            {selectedTaskId !== null && (
+                <TaskModal taskId={selectedTaskId} onClose={handleCloseModal} />
+            )}
         </div>
     )
 }
