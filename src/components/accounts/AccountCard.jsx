@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteOutlined, CloudServerOutlined, InboxOutlined, PictureOutlined, CopyOutlined, RocketOutlined, StarOutlined, StarFilled } from '@ant-design/icons';
 import { fetchMails } from '../../redux/slice/inboxSlice';
 import { Link } from 'react-router-dom';
-import { fetchCookies, fetchDrive, fetchKeep, fetchPhotos } from '../../redux/slice/tasksSlice';
-import { deleteAccount, fetchAccounts, addToStarred } from '../../redux/slice/accountsSlice';
+import { fetchTasks, fetchCookies, fetchDrive, fetchKeep, fetchPhotos } from '../../redux/slice/tasksSlice';
+import { deleteAccount, fetchAccounts, addToStarred, setStarAccount } from '../../redux/slice/accountsSlice';
 
 
-const AccountCard = ({ img, userName, userEmail, id }) => {
+const AccountCard = React.memo(({ img, userName, userEmail, id, starred }) => {
     const dispatch = useDispatch();
     const starredAccounts = useSelector(state => state.accounts.starredAccounts);
 
@@ -17,26 +17,42 @@ const AccountCard = ({ img, userName, userEmail, id }) => {
 
     const handleDriveButtonClick = () => {
         dispatch(fetchDrive({ id }));
+        // setTimeout(() => {
+        //     dispatch(fetchTasks());
+        //   }, 5000);
     };
 
     const handlePhotoButtonClick = () => {
         dispatch(fetchPhotos({ id }));
+        // setTimeout(() => {
+        //     dispatch(fetchTasks());
+        //   }, 5000);
     };
     const handleCookieButtonClick = () => {
         dispatch(fetchCookies({ id }));
+        // setTimeout(() => {
+        //     dispatch(fetchTasks());
+        //   }, 5000);
     };
     const handleKeepButtonClick = () => {
         dispatch(fetchKeep({ id }));
+        // setTimeout(() => {
+        //     dispatch(fetchTasks());
+        //   }, 5000);
     };
     const handleDeleteButtonClick = () => {
-        dispatch(deleteAccount({ id })).then(() => {
-            dispatch(fetchAccounts());
-        })
+        dispatch(deleteAccount({ id }))
+        // .then(() => {
+        //     dispatch(fetchAccounts());
+        // })
     };
 
     const handleStarButtonClick = () => {
-        // Диспатчим action для добавления или удаления аккаунта из звездных
-        dispatch(addToStarred(id));
+        // dispatch(addToStarred(id));
+        const isCurrentlyStarred = starred; // Проверяем, установлено ли в настоящее время значение starred в true
+        const newStarredValue = !isCurrentlyStarred; // Инвертируем значение
+      
+        dispatch(setStarAccount({ id }));
     };
 
     const isStarred = starredAccounts.includes(id);
@@ -44,8 +60,8 @@ const AccountCard = ({ img, userName, userEmail, id }) => {
 
     return (
         <div className="account-card">
-            <button className={`star-btn ${isStarred ? 'starred' : ''}`} onClick={handleStarButtonClick}>
-                {isStarred ? <StarFilled className='is-starred'/> : <StarOutlined />}
+            <button className={`star-btn ${starred ? 'starred' : ''}`} onClick={handleStarButtonClick}>
+                {starred ? <StarFilled className='is-starred'/> : <StarOutlined />}
             </button>
             <div className="account-card-img">
                 <img src={img} alt="user-img" className="card-img" />
@@ -66,6 +82,6 @@ const AccountCard = ({ img, userName, userEmail, id }) => {
             </div>
         </div>
     )
-}
+})
 
 export default AccountCard

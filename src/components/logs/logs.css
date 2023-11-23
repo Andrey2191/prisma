@@ -1,0 +1,28 @@
+.logs-card {
+    padding: 10px 15px;
+    margin: 10px 0;
+    width: calc(100% - 30px);
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    border-radius: 10px;
+    border: 1px;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+}
+
+.logs-card-img {
+    margin-right: 30px;
+}
+
+.card-img {
+    width: 35px;
+    border-radius: 50%;
+}
+
+.logs-card-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

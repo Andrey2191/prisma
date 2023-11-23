@@ -2,58 +2,55 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginUI from './LoginUi';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../../redux/actions/authActions';
+import { loginUser, logout } from '../../redux/slice/authSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated, error } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
-  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(loginUser(formData))
+  //   localStorage.setItem('isAuthenticated', 'true');
+  //   console.log(isAuthenticated);
+  // };
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/');
+  //   }
+  // }, [isAuthenticated, navigate]);
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      if (!formData.username || !formData.password) {
-        setError('Please fill out all fields.');
-        return;
-      }
-
-      const response = await axios.post('https://plifal.tech/api/login', formData);
-
-      if (response.status === 200 && response.data.session_token) {
-        const sessionToken = response.data.session_token;
-        localStorage.setItem('sessionToken', sessionToken);
-      
-      // Установить токен в заголовок Axios для всех будущих запросов
-      axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
-
-
-        axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
-        dispatch(loginSuccess());
-        console.log(response);
+    dispatch(loginUser(formData)).then((result) => {
+      if (loginUser.fulfilled.match(result)) {
+        // Redirect to '/'
         navigate('/');
-      } else {
-        setError('Invalid credentials.');
       }
-    } catch (error) {
-      console.error('An error occurred:', error);
-      setError('Invalid credentials. Please check your username and password and try again.');
-    }
+    });
   };
+
 
   return (
     <div className="login-page">
       <LoginUI formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} error={error} />
+      {/* {isAuthenticated ? (
+        navigate('/')
+      ) : (
+        <LoginUI formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} error={error} />
+      )} */}
     </div>
   );
 };

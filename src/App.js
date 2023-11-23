@@ -5,9 +5,12 @@ import LoginForm from './components/login/LoginForm';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Inbox from './components/inbox/Inbox';
+import axios from 'axios';
 
 function App() {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const sessionToken = sessionStorage.getItem('sessionToken');
+  axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
   console.log(isAuthenticated);
   return (
     <Router>
@@ -15,12 +18,19 @@ function App() {
         <Routes>
           <Route
             path="/login"
+            element={isAuthenticated ? <Navigate to="/" /> : <LoginForm />}
+          />
+          <Route
+            path="/"
             element={
-              isAuthenticated ? <Navigate to="/" /> : <LoginForm />
+              isAuthenticated ? (
+                <Home />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
-          <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
-          <Route path='/inbox/:id' element={<Inbox/>}/>
+          <Route path='/inbox/:id' element={<Inbox />} />
         </Routes>
       </div>
     </Router>

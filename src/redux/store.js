@@ -1,21 +1,29 @@
 import {  combineReducers } from 'redux';
-import authReducer from './reducers/authReducer';
-import fileReducer from './reducers/fileUploadReducer';
 import { configureStore } from '@reduxjs/toolkit';
+import { persistStore } from 'redux-persist';
+import { persistedReducer } from './persistConfig';
+import fileReducer from './reducers/fileUploadReducer';
 import accountsSlice from './slice/accountsSlice';
 import inboxSlice from './slice/inboxSlice';
 import tasksSlice from './slice/tasksSlice';
+import authSlice from './slice/authSlice';
+import logsSlice from './slice/logsSlice';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: authSlice,
   uploadedFile: fileReducer,
   accounts: accountsSlice,
   inbox: inboxSlice,
-  tasks: tasksSlice
+  tasks: tasksSlice,
+  logs: logsSlice
 });
 
+const persistedRootReducer = persistedReducer(rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer
+  reducer: persistedRootReducer
 })
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

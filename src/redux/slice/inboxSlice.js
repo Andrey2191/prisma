@@ -35,7 +35,14 @@ const inboxSlice = createSlice({
         error: null,
         selectedMessage: null,
     },
-    reducers: {},
+    reducers: {
+        resetSelectedMessage: (state) => {
+            state.selectedMessage = null;
+        },
+        resetMails: (state) => {
+            state.mails = []
+        }
+    },
     extraReducers: (builder) => {
         builder
         // GET
@@ -45,7 +52,6 @@ const inboxSlice = createSlice({
             })
             .addCase(fetchMails.fulfilled, (state, action) => {
                 state.loading = false;
-                // state.mails = action.payload;
                 state.mails = Array.isArray(action.payload) ? action.payload : [];
                 console.log('Mails updated:', state.mails);
             })
@@ -56,8 +62,20 @@ const inboxSlice = createSlice({
             })
             .addCase(fetchMessage.fulfilled, (state, action) => {
                 state.selectedMessage = action.payload; 
-            });
+                state.loading = false;
+            })
+            .addCase(fetchMessage.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchMessage.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+                
+            })
     },
 });
+
+export const { resetSelectedMessage, resetMails } = inboxSlice.actions;
 
 export default inboxSlice.reducer;

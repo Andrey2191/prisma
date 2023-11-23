@@ -3,6 +3,30 @@
     background-color: #333;
 }
 
+.spin-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.05);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: 20px 0;
+}
+
+.return-home-button{
+  margin-bottom: 150px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.return-home-button:hover{
+  text-decoration: none;
+  color: #459db6;
+}
+
 .inbox-content{
     width: 90%;
     margin-left: 30px;
@@ -31,7 +55,7 @@
 }
 
 .inbox-content-header{
-    margin-bottom: 30px;
+    margin: 15px 0 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;

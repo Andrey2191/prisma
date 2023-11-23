@@ -3,15 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import './header.css';
 import logo from '../../assets/images/logo.svg'
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/actions/authActions';
+import { logout } from '../../redux/slice/authSlice';
+
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    
     const handleLogout = () => {
         dispatch(logout());
+        // Redirect to '/login'
         navigate('/login');
-    };
+      };
+
+
     return (
         <div className="header-container">
             <div className="logo-container">
