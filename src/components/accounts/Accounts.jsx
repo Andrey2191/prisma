@@ -66,7 +66,7 @@ const Accounts = () => {
                     <h2>Accounts: {accounts?.length}</h2>
                 </div>
                 <div className="accounts-header-btns">
-                    <input className='custom-file-input' type="file" onChange={handleFileChange} multiple />
+                    <input className='custom-file-input' type="file" onChange={(event) => handleFileChange(event, dispatch)} multiple />
                     <button onClick={() => handleDeleteAllButton(dispatch)} className="delete-all" >Delete all</button>
                 </div>
             </div>
