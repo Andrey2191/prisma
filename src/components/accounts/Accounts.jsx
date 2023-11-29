@@ -2,11 +2,16 @@ import React, { useEffect, useState, useMemo } from 'react';
 import './accounts.css'
 import AccountCard from './AccountCard'
 import { useDispatch, useSelector } from 'react-redux';
-import { createAccount, deleteAllAccounts, fetchAccounts, addToStarred, readFile } from '../../redux/slice/accountsSlice';
-import { fetchLogs } from '../../redux/slice/logsSlice';
-import { fetchTasks } from '../../redux/slice/tasksSlice';
-import setupWebSocket from '../../socket/webSocket';
+import { fetchAccounts } from '../../redux/slice/accountsSlice';
 import LogsCard from '../logs/LogsCard';
+import { initWebSocket } from '../../socket/webSocket';
+import {
+    handleFileChange,
+    handleDeleteAllButton,
+    handleStarredButtonClick,
+    handleAllAccountsButtonClick,
+    handleLogsButtonClick,
+} from './accountsHandlers';
 
 
 const Accounts = () => {
@@ -15,91 +20,32 @@ const Accounts = () => {
     const logs = useSelector(state => state.logs.logs);
     const starredAccounts = useSelector(state => state.accounts.starredAccounts);
     const [searchText, setSearchText] = useState('');
-    const [selectedGroupId, setSelectedGroupId] = useState(null);
     const [showStarredAccounts, setShowStarredAccounts] = useState(false);
     const [showLogs, setShowLogs] = useState(false);
     const [activeTab, setActiveTab] = useState('all-accounts');
+    const [socket, setSocket] = useState(null);
 
     const sessionToken = useSelector(state => state.auth.sessionToken);
-    console.log(sessionToken);
-
     const MemoizedAccountCard = React.memo(AccountCard);
-
 
     useEffect(() => {
         dispatch(fetchAccounts());
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     const ws = setupWebSocket(dispatch, sessionToken);
-
-    //     ws.onopen = () => {
-    //         ws.send(JSON.stringify({ type: 'Authorization', token: sessionToken }));
-    //       };
-
-    //     ws.onclose = (event) => {
-    //         console.error('WebSocket connection closed:', event);
-    //     };
-
-    //     return () => {
-    //         ws.close();
-    //     };
-    // }, []);
-
-    const handleFileChange = async (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            console.log(file);
-            try {
-                await dispatch(createAccount(file));
-                console.log(accounts.length);
-                console.log('Account created successfully!');
-
-                // setTimeout(() => {
-                //     dispatch(fetchAccounts());
-                //     dispatch(fetchTasks());
-                //     console.log('10 sec');
-                // }, 10000);
-
-            } catch (error) {
-                console.error('Error creating account:', error);
-            }
+    useEffect(() => {
+        if (!socket) {
+            const ws = initWebSocket(sessionToken, dispatch);
+            setSocket(ws);
         }
-    };
 
+        return () => {
+            if (socket) {
+                socket.close();
+                setSocket(null);
+            }
+        };
+    }, [socket, sessionToken, dispatch]);
 
-    const handleDeleteAllButton = () => {
-        dispatch(deleteAllAccounts());
-    };
-
-    const handleStarredButtonClick = () => {
-        setShowLogs(false);
-        setShowStarredAccounts(true);
-        setActiveTab('starred');
-    };
-
-    const handleAllAccountsButtonClick = () => {
-        setShowLogs(false);
-        setShowStarredAccounts(false);
-        setActiveTab('all-accounts');
-    };
-
-    const handleLogsButtonClick = () => {
-        setShowLogs(true);
-        dispatch(fetchLogs());
-        setActiveTab('logs');
-    };
-
-    // const groupedAccounts = useMemo(() => {
-    //     return (accounts || []).reduce((acc, account) => {
-    //         const groupId = account.account_group_id || 'ungrouped';
-    //         if (!acc[groupId]) {
-    //             acc[groupId] = [];
-    //         }
-    //         acc[groupId].push(account);
-    //         return acc;
-    //     }, {});
-    // }, [accounts]);
 
     const filteredAccounts = useMemo(() => {
         const sourceArray = showStarredAccounts ? starredAccounts : accounts;
@@ -113,7 +59,6 @@ const Accounts = () => {
         }, {});
     }, [showStarredAccounts, accounts, starredAccounts]);
 
-
     return (
         <div className="accounts">
             <div className="accounts-header">
@@ -122,25 +67,25 @@ const Accounts = () => {
                 </div>
                 <div className="accounts-header-btns">
                     <input className='custom-file-input' type="file" onChange={handleFileChange} multiple />
-                    <button onClick={handleDeleteAllButton} className="delete-all" >Delete all</button>
+                    <button onClick={() => handleDeleteAllButton(dispatch)} className="delete-all" >Delete all</button>
                 </div>
             </div>
             <div className="accounts-content">
                 <div className="accounts-content-filter">
                     <button
-                        onClick={handleAllAccountsButtonClick}
+                        onClick={() => handleAllAccountsButtonClick(dispatch, setShowLogs, setShowStarredAccounts, setActiveTab)}
                         className={`all-accounts-btn ${activeTab === 'all-accounts' ? 'active-tab' : ''}`}
                     >
                         All Accounts
                     </button>
                     <button
-                        onClick={handleStarredButtonClick}
+                        onClick={() => handleStarredButtonClick(dispatch, setShowLogs, setShowStarredAccounts, setActiveTab)}
                         className={`starred-btn ${activeTab === 'starred' ? 'active-tab' : ''}`}
                     >
                         Starred
                     </button>
                     <button
-                        onClick={handleLogsButtonClick}
+                        onClick={() => handleLogsButtonClick(dispatch, setShowLogs, setActiveTab)}
                         className={`logs-btn ${activeTab === 'logs' ? 'active-tab' : ''}`}
                     >
                         Logs
@@ -151,8 +96,8 @@ const Accounts = () => {
                         placeholder='Search'
                         className="accounts-content-input"
                         value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)} 
-                        disabled={activeTab === 'logs'}/>
+                        onChange={(e) => setSearchText(e.target.value)}
+                        disabled={activeTab === 'logs'} />
                 </div>
                 <div className="accounts-content-list">
                     {showLogs ? (

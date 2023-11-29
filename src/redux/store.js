@@ -8,6 +8,7 @@ import inboxSlice from './slice/inboxSlice';
 import tasksSlice from './slice/tasksSlice';
 import authSlice from './slice/authSlice';
 import logsSlice from './slice/logsSlice';
+import inboxQuerySlice from './slice/inboxQuerySlice';
 
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   accounts: accountsSlice,
   inbox: inboxSlice,
   tasks: tasksSlice,
-  logs: logsSlice
+  logs: logsSlice,
+  query: inboxQuerySlice
 });
 
 const persistedRootReducer = persistedReducer(rootReducer);

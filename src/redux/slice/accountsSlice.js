@@ -18,8 +18,6 @@ export const readFile = async (file) => {
   });
 };
 
-const sessionToken = sessionStorage.getItem('sessionToken')
-
 export const createAccount = createAsyncThunk('accounts/createAccount', async (file) => {
   try {
     const fileContent = await readFile(file);
@@ -34,7 +32,29 @@ export const createAccount = createAsyncThunk('accounts/createAccount', async (f
   }
 });
 
+export const createBulkAccounts = createAsyncThunk('accounts/createBulkAccounts', async (files) => {
+  try {
+    const filesArray = Array.from(files);
+    console.log('Inside createBulkAccounts');
+    const requests = filesArray.map(async (file) => {
+      const fileContent = await readFile(file);
+      return {
+        file_name: file.name,
+        cookies: fileContent,
+      };
+    });
 
+    const accountsData = await Promise.all(requests);
+
+    const response = await axios.post('https://plifal.tech/api/accounts/bulk', accountsData);
+
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error('Error in createBulkAccounts:', error);
+    throw error;
+  }
+});
 
 export const fetchAccounts = createAsyncThunk('accounts/fetchAccounts', async () => {
   try {
@@ -84,7 +104,7 @@ const accountsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // POST
+      // POST (create single account)
       .addCase(createAccount.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -94,6 +114,19 @@ const accountsSlice = createSlice({
         // state.data.push(action.payload);
       })
       .addCase(createAccount.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      // POST (create multiple accounts)
+      .addCase(createBulkAccounts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createBulkAccounts.fulfilled, (state, action) => {
+        state.loading = false;
+        // state.data.push(...action.payload);
+      })
+      .addCase(createBulkAccounts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

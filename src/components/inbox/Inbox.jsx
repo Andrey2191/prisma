@@ -52,13 +52,7 @@ const Inbox = () => {
     };
 
 
-    console.log(mails);
 
-
-    // const filteredMails = mails.filter(mail =>
-    //     mail.sender.toLowerCase().includes(searchText.toLowerCase()) ||
-    //     mail.subject.toLowerCase().includes(searchText.toLowerCase())
-    // );
 
     const filteredMails = mails.filter(mail =>
         (mail.sender && mail.sender.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -71,9 +65,9 @@ const Inbox = () => {
                 <Header />
             </div>
             <div className="inbox-content">
-            <Link to="/" className="return-home-button"> <ArrowLeftOutlined /> Home</Link>
+                <Link to="/" className="return-home-button"> <ArrowLeftOutlined /> Home</Link>
                 <div className="inbox-content-header">
-                    <h1 className='inbox-header-title'>Inbox</h1>                    
+                    <h1 className='inbox-header-title'>Inbox</h1>
                     <input value={searchText}
                         type="text"
                         placeholder='Search'

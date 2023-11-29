@@ -1,67 +1,26 @@
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { DeleteOutlined, CloudServerOutlined, InboxOutlined, PictureOutlined, CopyOutlined, RocketOutlined, StarOutlined, StarFilled } from '@ant-design/icons';
-import { fetchMails } from '../../redux/slice/inboxSlice';
 import { Link } from 'react-router-dom';
-import { fetchTasks, fetchCookies, fetchDrive, fetchKeep, fetchPhotos } from '../../redux/slice/tasksSlice';
-import { deleteAccount, fetchAccounts, addToStarred, setStarAccount } from '../../redux/slice/accountsSlice';
+import { useAccountCardHandlers } from './accountsHandlers';
 
 
 const AccountCard = React.memo(({ img, userName, userEmail, id, starred }) => {
-    const dispatch = useDispatch();
-    const starredAccounts = useSelector(state => state.accounts.starredAccounts);
 
-    const handleInboxButtonClick = () => {
-        dispatch(fetchMails({ id }));
-    };
-
-    const handleDriveButtonClick = () => {
-        dispatch(fetchDrive({ id }));
-        // setTimeout(() => {
-        //     dispatch(fetchTasks());
-        //   }, 5000);
-    };
-
-    const handlePhotoButtonClick = () => {
-        dispatch(fetchPhotos({ id }));
-        // setTimeout(() => {
-        //     dispatch(fetchTasks());
-        //   }, 5000);
-    };
-    const handleCookieButtonClick = () => {
-        dispatch(fetchCookies({ id }));
-        // setTimeout(() => {
-        //     dispatch(fetchTasks());
-        //   }, 5000);
-    };
-    const handleKeepButtonClick = () => {
-        dispatch(fetchKeep({ id }));
-        // setTimeout(() => {
-        //     dispatch(fetchTasks());
-        //   }, 5000);
-    };
-    const handleDeleteButtonClick = () => {
-        dispatch(deleteAccount({ id }))
-        // .then(() => {
-        //     dispatch(fetchAccounts());
-        // })
-    };
-
-    const handleStarButtonClick = () => {
-        // dispatch(addToStarred(id));
-        const isCurrentlyStarred = starred; // Проверяем, установлено ли в настоящее время значение starred в true
-        const newStarredValue = !isCurrentlyStarred; // Инвертируем значение
-      
-        dispatch(setStarAccount({ id }));
-    };
-
-    const isStarred = starredAccounts.includes(id);
+    const {
+        handleInboxButtonClick,
+        handleDriveButtonClick,
+        handlePhotoButtonClick,
+        handleCookieButtonClick,
+        handleKeepButtonClick,
+        handleDeleteButtonClick,
+        handleStarButtonClick,
+    } = useAccountCardHandlers(id, starred);
 
 
     return (
         <div className="account-card">
             <button className={`star-btn ${starred ? 'starred' : ''}`} onClick={handleStarButtonClick}>
-                {starred ? <StarFilled className='is-starred'/> : <StarOutlined />}
+                {starred ? <StarFilled className='is-starred' /> : <StarOutlined />}
             </button>
             <div className="account-card-img">
                 <img src={img} alt="user-img" className="card-img" />
