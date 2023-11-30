@@ -14,8 +14,14 @@
   .logo-container img {
     height: 40px; 
   }
+
+  .logout-button{
+    display: flex;
+    align-items: center;
+  }
   
   .logout-button button {
+    margin-left: 100px;
     background-color: #a82a2a;
     color: #fff;
     padding: 10px 20px; 
@@ -27,5 +33,9 @@
   
   .logout-button button:hover {
     background-color: #f15b5b; 
+  }
+
+  .header-img{
+    width: 250px;
   }
   

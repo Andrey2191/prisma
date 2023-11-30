@@ -13,7 +13,6 @@ const Header = () => {
     
     const handleLogout = () => {
         dispatch(logout());
-        // Redirect to '/login'
         navigate('/login');
       };
 
@@ -24,6 +23,7 @@ const Header = () => {
                 <img src={logo} alt="logo" />
             </div>
             <div className="logout-button">
+                <img src={process.env.PUBLIC_URL + '/raccoon_banner.png'} alt="" className="header-img" />
                 <button onClick={handleLogout}>Logout</button>
             </div>
         </div>
