@@ -1,4 +1,4 @@
-import {  combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { persistedReducer } from './persistConfig';
@@ -23,7 +23,9 @@ const rootReducer = combineReducers({
 const persistedRootReducer = persistedReducer(rootReducer);
 
 const store = configureStore({
-  reducer: persistedRootReducer
+  reducer: persistedRootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 })
 
 const persistor = persistStore(store);

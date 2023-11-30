@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginUI from './LoginUi';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess } from '../../redux/actions/authActions';
-import { loginUser, logout } from '../../redux/slice/authSlice';
+import { loginUser } from '../../redux/slice/authSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -20,37 +18,22 @@ const LoginForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(loginUser(formData))
-  //   localStorage.setItem('isAuthenticated', 'true');
-  //   console.log(isAuthenticated);
-  // };
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate('/');
-  //   }
-  // }, [isAuthenticated, navigate]);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData)).then((result) => {
+    try {
+      const result = await dispatch(loginUser(formData));
       if (loginUser.fulfilled.match(result)) {
-        // Redirect to '/'
         navigate('/');
       }
-    });
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
 
 
   return (
     <div className="login-page">
       <LoginUI formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} error={error} />
-      {/* {isAuthenticated ? (
-        navigate('/')
-      ) : (
-        <LoginUI formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} error={error} />
-      )} */}
     </div>
   );
 };

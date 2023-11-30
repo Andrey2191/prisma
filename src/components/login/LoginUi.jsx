@@ -6,7 +6,7 @@ const LoginUI = ({ formData, handleInputChange, handleSubmit, error }) => {
   return (
     <div className="login-form">
       <img src={logo} alt="Logo" className="logo" />
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error-message">{error.error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input

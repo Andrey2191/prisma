@@ -4,7 +4,6 @@ import axios from 'axios';
 export const loginUser = createAsyncThunk('auth/loginUser', async (formData, { rejectWithValue }) => {
   try {
     const response = await axios.post('https://plifal.tech/api/login', formData);
-    console.log(response.data.session_token);
     const sessionToken = response.data.session_token
     const isAuthenticated = response.data.isAuthenticated
     localStorage.setItem('sessionToken', sessionToken);
@@ -30,6 +29,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.sessionToken = null;
       sessionStorage.removeItem('sessionToken');
+      localStorage.removeItem('sessionToken');
     },
   },
   extraReducers: (builder) => {

@@ -1,9 +1,10 @@
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storageSession from 'redux-persist/lib/storage/session';
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: storageSession,
+  whitelist: ['auth', 'accounts', 'tasks'],
 };
 
 export const persistedReducer = (reducer) => persistReducer(persistConfig, reducer);

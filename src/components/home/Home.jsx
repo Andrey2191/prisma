@@ -8,11 +8,9 @@ export default function Home({ setIsAuthenticated }) {
         <div className="home-page">
             <Header setIsAuthenticated={setIsAuthenticated} />
             <div className="home-content">
-            <Accounts/>
-            <Tasks/>
+                <Accounts />
+                <Tasks />
             </div>
-            
-
         </div>
     );
 }

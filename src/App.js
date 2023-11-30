@@ -11,7 +11,6 @@ function App() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const sessionToken = sessionStorage.getItem('sessionToken');
   axios.defaults.headers.common['Authorization'] = `${sessionToken}`;
-  console.log(isAuthenticated);
   return (
     <Router>
       <div className="App">
