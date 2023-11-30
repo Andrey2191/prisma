@@ -16,6 +16,7 @@ const AccountCard = React.memo(({ img, userName, userEmail, id, starred }) => {
         handleStarButtonClick,
     } = useAccountCardHandlers(id, starred);
 
+    const isGmail = userEmail.endsWith("gmail.com");
 
     return (
         <div className="account-card">
@@ -30,7 +31,11 @@ const AccountCard = React.memo(({ img, userName, userEmail, id, starred }) => {
                 <span className="card-info-email">{userEmail}</span>
             </div>
             <div className="account-card-btns">
-                <Link to={`/inbox/${id}`} className='card-btn' onClick={handleInboxButtonClick}><InboxOutlined /></Link>
+                {isGmail && (
+                <Link to={`/inbox/${id}`} className='card-btn' onClick={handleInboxButtonClick}>
+                    <InboxOutlined />
+                </Link>
+            )}
                 <button onClick={handleDriveButtonClick} className='card-btn'><CloudServerOutlined /></button>
                 <Link onClick={handlePhotoButtonClick} className='card-btn'><PictureOutlined /></Link>
                 <Link onClick={handleCookieButtonClick} className='card-btn'><RocketOutlined /></Link>
