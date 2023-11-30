@@ -25,7 +25,6 @@ export const createAccount = createAsyncThunk('accounts/createAccount', async (f
       file_name: file.name,
       cookies: fileContent,
     });
-    console.log(response.data.task);
     return response.data.task;
   } catch (error) {
     throw error;
@@ -35,7 +34,6 @@ export const createAccount = createAsyncThunk('accounts/createAccount', async (f
 export const createBulkAccounts = createAsyncThunk('accounts/createBulkAccounts', async (files) => {
   try {
     const filesArray = Array.from(files);
-    console.log('Inside createBulkAccounts');
     const requests = filesArray.map(async (file) => {
       const fileContent = await readFile(file);
       return {
@@ -43,12 +41,9 @@ export const createBulkAccounts = createAsyncThunk('accounts/createBulkAccounts'
         cookies: fileContent,
       };
     });
-
     const accountsData = await Promise.all(requests);
-
     const response = await axios.post('https://plifal.tech/api/accounts/bulk', accountsData);
 
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Error in createBulkAccounts:', error);
@@ -86,7 +81,6 @@ export const deleteAllAccounts = createAsyncThunk('accounts/deleteAllAccounts', 
 export const setStarAccount = createAsyncThunk('accounts/setStarredAccount', async ({ id }) => {
   try {
     const response = await axios.post(`https://plifal.tech/api/account/star?id=${id}`);
-    console.log(response);
     return response.data.account;
   } catch (error) {
     throw error;

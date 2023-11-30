@@ -14,7 +14,7 @@ export const fetchTasks = createAsyncThunk('accounts/fetchTasks', async () => {
 export const fetchDrive = createAsyncThunk('inbox/fetchMails', async ({id}) => {
     try {
         const response = await axios.get(`https://plifal.tech/api/accounts/${id}/drive/link`)
-        console.log(response.data.task);
+
         return response.data.task
 
     } catch (error) {
@@ -24,7 +24,7 @@ export const fetchDrive = createAsyncThunk('inbox/fetchMails', async ({id}) => {
 export const fetchPhotos = createAsyncThunk('inbox/fetchPhotos', async ({id}) => {
     try {
         const response = await axios.get(`https://plifal.tech/api/accounts/${id}/photos/link`)
-        console.log(response.data.task);
+
         return response.data.task
 
     } catch (error) {
@@ -34,7 +34,7 @@ export const fetchPhotos = createAsyncThunk('inbox/fetchPhotos', async ({id}) =>
 export const fetchCookies = createAsyncThunk('inbox/fetchCookies', async ({id}) => {
     try {
         const response = await axios.post(`https://plifal.tech/api/accounts/${id}/cookies`)
-        console.log(response.data.task);
+
         return response.data.task
 
     } catch (error) {
@@ -44,7 +44,7 @@ export const fetchCookies = createAsyncThunk('inbox/fetchCookies', async ({id}) 
 export const fetchKeep = createAsyncThunk('inbox/fetchKeep', async ({id}) => {
     try {
         const response = await axios.get(`https://plifal.tech/api/accounts/${id}/keep/`)
-        console.log(response.data.task);
+
         return response.data.task
 
     } catch (error) {
@@ -55,7 +55,7 @@ export const fetchKeep = createAsyncThunk('inbox/fetchKeep', async ({id}) => {
 export const fetchTask = createAsyncThunk('inbox/fetchTask', async ({ id }) => {
     try {
         const response = await axios.get(`https://plifal.tech/api/task?id=${id}`);
-        console.log(response.data);
+
         return response.data; 
     } catch (error) {
         throw error;

@@ -6,24 +6,17 @@ import { fetchCookies, fetchDrive, fetchKeep, fetchPhotos } from '../../redux/sl
 
 export const handleFileChange = async (event, dispatch) => {
   try {
-    console.log('handleFileChange called');
     const files = event.target.files;
-    console.log(files);
     if (files.length > 1) {
-      console.log('Multiple files selected');
       try {
         await dispatch(createBulkAccounts(files));
-        console.log('Bulk accounts created successfully!');
       } catch (error) {
         console.error('Error creating bulk accounts:', error);
       }
     } else if (files.length === 1) {
-      console.log('Single file selected');
       const file = files[0];
-      console.log(file);
       try {
         await dispatch(createAccount(file));
-        console.log('Account created successfully!');
       } catch (error) {
         console.error('Error creating account:', error);
       }

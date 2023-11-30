@@ -43,7 +43,6 @@ const Inbox = () => {
     };
 
     const handleViewChange = (view, query, dataView, dataQuery) => {
-        console.log('Handling view change:', view, query, dataView, dataQuery);
         setActiveView(view);
         setActiveQuery(query);
         setShowMessagePage(false);

@@ -23,12 +23,10 @@ const handleWebSocketData = (model, action, data, dispatch) => {
 };
 
 const handleAccountUpdate = (data, dispatch) => {
-    console.log('Аккаунт обновлен через WebSocket:', data);
     dispatch(fetchAccounts());
 };
 
 const handleTaskUpdate = (data, dispatch) => {
-    console.log('Задача обновлена через WebSocket:', data);
     dispatch(fetchTasks());
 };
 
@@ -53,7 +51,6 @@ export const initWebSocket = (sessionToken, dispatch) => {
             if (jsonData.type === 'update') {
                 try {
                     const { model, action, data } = jsonData;
-                    console.log(`Received WebSocket data - Model: ${model}, Action: ${action}, Data:`, data);
                     handleWebSocketData(model, action, data, dispatch);
                 } catch (e) {
                     console.error("Failed to execute modelAction: " + e);
