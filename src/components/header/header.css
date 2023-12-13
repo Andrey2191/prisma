@@ -21,7 +21,7 @@
   }
   
   .logout-button button {
-    margin-left: 100px;
+    margin-left: 60px;
     background-color: #a82a2a;
     color: #fff;
     padding: 10px 20px; 
@@ -36,6 +36,6 @@
   }
 
   .header-img{
-    width: 250px;
+    width: 200px;
   }
   

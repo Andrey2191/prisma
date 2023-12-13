@@ -27,10 +27,11 @@ const handleAccountUpdate = (data, dispatch) => {
 };
 
 const handleTaskUpdate = (data, dispatch) => {
+    console.log(data);
     dispatch(fetchTasks());
 };
 
-export const initWebSocket = (sessionToken, dispatch) => {
+export const initWebSocket = (sessionToken, dispatch, handleWebSocketUpdate) => {
     const ws = new WebSocket(`wss://plifal.tech/api/ws?session_token=${sessionToken}`);
 
     ws.onopen = () => {
@@ -45,13 +46,21 @@ export const initWebSocket = (sessionToken, dispatch) => {
         console.error('WebSocket Error:', error);
     };
 
+
     ws.onmessage = (event) => {
+        
         try {
             const jsonData = JSON.parse(event.data);
+            console.log(jsonData.data);
             if (jsonData.type === 'update') {
                 try {
                     const { model, action, data } = jsonData;
                     handleWebSocketData(model, action, data, dispatch);
+
+                    if (handleWebSocketUpdate) {
+                        handleWebSocketUpdate(jsonData.data);
+                    }
+                    
                 } catch (e) {
                     console.error("Failed to execute modelAction: " + e);
                 }

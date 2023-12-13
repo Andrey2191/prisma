@@ -10,14 +10,17 @@ export const fetchInboxQuery = createAsyncThunk('query/fetchInboxQuery', async (
     }
 });
 
-export const createInboxQuery = createAsyncThunk('query/createInboxQuery', async (method, name, place, value) => {
+export const createInboxQuery = createAsyncThunk('query/createInboxQuery', async (requestData) => {
+    // const requestData = {
+    //   method,
+    //   name,
+    //   place,
+    //   value
+    // }
+    console.log(requestData);
     try {
-      const response = await axios.post('https://plifal.tech/api/inbox_query', {
-        method: method,
-        name: name,
-        place: place,
-        value: value
-      });
+      const response = await axios.post('https://plifal.tech/api/inbox_query', requestData);
+      
       return response.data.query;
     } catch (error) {
       throw error;
@@ -50,7 +53,11 @@ const inboxQuerySlice = createSlice({
       loading: false,
       error: null,
     },
-    reducers: {},
+    reducers: {
+      resetMails: (state) => {
+        state.mails = []
+    }
+    },
     extraReducers: (builder) => {
       builder
         // GET QUERY
@@ -106,5 +113,7 @@ const inboxQuerySlice = createSlice({
           })
     },
   })
+
+  export const { resetMails } = inboxQuerySlice.actions;
   
   export default inboxQuerySlice.reducer;

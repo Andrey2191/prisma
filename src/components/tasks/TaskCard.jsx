@@ -1,6 +1,12 @@
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
 
-const TaskCard = ({index, name, success, onClick}) => {
+const TaskCard = ({ index, name, success, onClick, jsonData }) => {
+
+    // useEffect(() => {
+
+    // }, [jsonData]);
+
 
 
     return (
@@ -12,7 +18,14 @@ const TaskCard = ({index, name, success, onClick}) => {
                 {name}
             </div>
             <div className="task-card-check">
-            {success ? <CheckOutlined /> : <CloseOutlined className='task-close'/>}
+                {success ? <CheckOutlined /> : <CloseOutlined className='task-close' />}
+                {/* {jsonData && jsonData.id === index ? (
+                    jsonData.in_work ? <LoadingOutlined className='task-load'/> : (
+                        <CheckOutlined />
+                    )
+                ) : (
+                    success ? <CheckOutlined /> : <CloseOutlined className='task-close' />
+                )} */}
             </div>
         </div>
     )

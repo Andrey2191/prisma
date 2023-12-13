@@ -9,6 +9,7 @@ export const fetchMails = createAsyncThunk('inbox/fetchMails', async ({ id, quer
                 view,
             }
         })
+        
         return response.data.mails
 
     } catch (error) {
@@ -19,6 +20,7 @@ export const fetchMails = createAsyncThunk('inbox/fetchMails', async ({ id, quer
 export const fetchMessage = createAsyncThunk('inbox/fetchMessage', async ({ id, threadId, messageId }) => {
     try {
         const response = await axios.get(`https://plifal.tech/api/accounts/${id}/inbox/mail?threadId=${threadId}&messageId=${messageId}`);
+        console.log(response.data.body);
         return response.data.body;
     } catch (error) {
         throw error;

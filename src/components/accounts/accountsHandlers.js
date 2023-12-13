@@ -3,6 +3,7 @@ import { createBulkAccounts, createAccount, deleteAllAccounts, deleteAccount, se
 import { fetchMails } from '../../redux/slice/inboxSlice';
 import { fetchLogs } from '../../redux/slice/logsSlice';
 import { fetchCookies, fetchDrive, fetchKeep, fetchPhotos } from '../../redux/slice/tasksSlice';
+import { deleteInboxQuery, fetchInboxQuery } from '../../redux/slice/inboxQuerySlice';
 
 export const handleFileChange = async (event, dispatch) => {
   try {
@@ -30,14 +31,16 @@ export const handleDeleteAllButton = (dispatch) => {
   dispatch(deleteAllAccounts());
 };
 
-export const handleStarredButtonClick = (dispatch, setShowLogs, setShowStarredAccounts, setActiveTab) => {
+export const handleStarredButtonClick = (dispatch, setShowLogs, setShowStarredAccounts, setActiveTab, setShowQuery) => {
   setShowLogs(false);
+  setShowQuery(false);
   setShowStarredAccounts(true);
   setActiveTab('starred');
 };
 
-export const handleAllAccountsButtonClick = (dispatch, setShowLogs, setShowStarredAccounts, setActiveTab) => {
+export const handleAllAccountsButtonClick = (dispatch, setShowLogs, setShowStarredAccounts, setActiveTab, setShowQuery) => {
   setShowLogs(false);
+  setShowQuery(false);
   setShowStarredAccounts(false);
   setActiveTab('all-accounts');
 };
@@ -46,6 +49,17 @@ export const handleLogsButtonClick = (dispatch, setShowLogs, setActiveTab) => {
   setShowLogs(true);
   dispatch(fetchLogs());
   setActiveTab('logs');
+};
+
+export const handleQueryButtonClick = (dispatch, setShowQuery, setActiveTab, setShowLogs) => {
+  setShowLogs(false);
+  setShowQuery(true);
+  dispatch(fetchInboxQuery());
+  setActiveTab('query');
+}
+
+export const handleDeleteQueryButtonClick = (id , dispatch) => {
+  dispatch(deleteInboxQuery({ id }));
 };
 
 export const useAccountCardHandlers = (id, starred) => {

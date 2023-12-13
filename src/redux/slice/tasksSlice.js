@@ -70,7 +70,11 @@ const tasksSlice = createSlice({
         error: null,
         selectedTask: null,
     },
-    reducers: {},
+    reducers: {
+        resetSelectedTask: (state) => {
+            state.selectedTask = null
+        }
+    },
     extraReducers: (builder) => {
         builder
         // PUT
@@ -115,5 +119,7 @@ const tasksSlice = createSlice({
             });
     },
 });
+
+export const { resetSelectedTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

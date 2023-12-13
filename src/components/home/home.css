@@ -5,5 +5,9 @@
 
 .home-content{
     display: flex;
+    max-height: 90vh;
+    /* max-height: 100%; */
 }
+
+
 

@@ -1,0 +1,143 @@
+.query-card {
+    padding: 10px 15px;
+    margin: 10px 0;
+    width: calc(100% - 30px);
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    border-radius: 10px;
+    border: 1px;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+}
+
+
+.query-card-info {
+    display: flex;
+    flex: 1;
+}
+
+.query-card-msg{
+    display: flex;
+    flex-direction: column;
+}
+
+.name{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------MODAL----- */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 100px;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    color: white;
+  }
+
+  .modal-query-header{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+  }
+
+  .modal-query-btn{
+    border: none;
+    padding: 7px;
+    background-color: rgb(236, 90, 90);
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .modal-query-btn:hover{
+    background-color: rgb(245, 43, 43);
+    cursor: pointer;
+  }
+
+  .modal-query-content{
+    width: 50%;
+    height: 70%;
+    overflow-y: auto;
+  }
+  
+  .modal ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .modal li {
+    margin: 10px 0;
+  }
+
+  /* ------MESSAGE--------- */
+  .inbox-query-card{
+    width: calc(100% - 30px);
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #222;
+    color: #fff;
+    -webkit-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 5px -1px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
+
+.query-card-header{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inbox-query-card-info{
+    width: 260px;
+}
+
+.inbox-query-card-message{
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.inbox-query-card-snippet{
+    color: #c4c4c4;
+}
+
+.inbox-query-card-time{
+    color: #c4c4c4;
+}
+
+.inbox-query-card-body{
+  margin-top: 50px;
+  background-color: #fff;
+}
+
+.query-card-btn{
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 25px;
+  outline: none;
+}
+
+.query-card-btn:hover{
+  color: #5bbdf1;
+}
